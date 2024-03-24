@@ -122,6 +122,13 @@ const VideoPlayer = () => {
             .padStart(2, "0")}`;
         return formattedTime;
     };
+    
+    const requestFullScreen = ()=>{
+      const videoEl = videoRef.current
+      videoEl.requestFullScreen();
+      return 0
+    }
+
 
     return (
         <div className="flex flex-col">
