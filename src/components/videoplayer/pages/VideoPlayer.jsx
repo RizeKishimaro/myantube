@@ -126,19 +126,20 @@ const VideoPlayer = () => {
     const requestFullScreen = ()=>{
       const videoEl = videoRef.current
       videoEl.requestFullScreen();
+      console.log('requested')
       return 0
     }
 
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col" onDoubleClick={requestFullScreen}>
             <div
                 className="relative"
                 onMouseMove={() => setShowControls(true)}
                 onTouchMove={() => {
                     setShowControls(true);
                 }}
-           onDoubleClick={requestFullScreen}
+           
             >
                 <video
                     ref={videoRef}
