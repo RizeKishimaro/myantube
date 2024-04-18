@@ -138,6 +138,7 @@ const VideoPlayer = () => {
                 onTouchMove={() => {
                     setShowControls(true);
                 }}
+           onDoubleClick={requestFullScreen}
             >
                 <video
                     ref={videoRef}
