@@ -125,7 +125,8 @@ const VideoPlayer = () => {
     
     const requestFullScreen = ()=>{
       const videoEl = videoRef.current
-      videoEl.requestFullScreen();
+      console.log(videoEl)
+      videoEl.requestFullScreen()
       console.log('requested')
       return 0
     }
