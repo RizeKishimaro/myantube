@@ -6,7 +6,7 @@ const Comments = ({ profilePic, text, topComment }) => {
   
       <div className="bg-gray-700  px-3 py-2 rounded-md">
         <p className="text-xl ml-1.5 ">Comments</p>
-    <div className="collapse">
+    <div className="collapse ml-3">
       <input className="min-h-0" type="checkbox" />
       <div className="collapse-title p-0 m-0 min-h-0 text-xl font-medium">
         <div className="flex items-start my-3">
