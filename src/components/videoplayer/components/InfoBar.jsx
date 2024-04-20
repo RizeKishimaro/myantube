@@ -3,7 +3,7 @@ import Uploader from "./Uploader";
 import Comments from "./Comments";
 import ActionBar from "./ActionBar";
 
-const ActionData = [{ likes: 0, dislkie: 0, isSaved: false }];
+const ActionData = [{ likes: 0, dislkies: 0, isSaved: false }];
 const UploaderData = [
   {
     avatar:
@@ -43,7 +43,7 @@ const InfoBar = ({ title, views }) => {
     <div className="info-bar p-2 bg-gray-900 text-white">
       <h2 className="text-xl font-semibold">{title}</h2>
       <p className="text-sm">{views.toLocaleString()} views</p>
-      <ActionBar likes={300} isSaved={isSaved} setIsSaved={setIsSaved} />
+      <ActionBar likes={300} isSaved={isSaved} setIsSaved={setIsSaved} actionData={ActionData}/>
       <Uploader
         uploader={"Hatsune Miku"}
         profilePic={

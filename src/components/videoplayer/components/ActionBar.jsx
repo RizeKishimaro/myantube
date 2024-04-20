@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useState} from "react";
+
 
 const ThumbDownIcon = ()=>{
   return (<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
@@ -23,12 +24,16 @@ const BookmarkIcon = ()=>{
          </svg>
 )
 }
-const ActionBar = ({ likes, dislikes, id,isSaved,setIsSaved }) => {
+const ActionBar = ({ actionData }) => {
+  const {likes,dislikes,isSaved} = actionData
+  const [saved,setSaved] = useState(actionData.isSaved);
+  const [like,setLike] = useState(likes)
+  const [dislike,setDislike] = useState(dislikes)
   return (
     <div className={"flex justify-between h-15 py-3"}>
       <button className="border border-white px-4 py-1 rounded-full flex w-[100px]">
       <ThumbUpIcon /> 
-        <span className={`ml-2 text-sm text-center my-auto`}>{likes}</span>
+        <span className={`ml-2 text-sm text-center my-auto`}>{like || 0}</span>
       </button>
       <button className="border border-white px-4 py-1 rounded-full flex w-[100px]">
         <ThumbDownIcon /> 
