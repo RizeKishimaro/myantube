@@ -6,7 +6,7 @@ const Comments = ({ profilePic, text, topComment }) => {
   
       <div className="bg-gray-700 p px-3 py-2 rounded-md">
         <p className="text-xl ml-1.5 ">Comments</p>
-    <div className="collapse ">
+    <div className="collapse space-y-5 space-x-4">
       
       <input className="min-h-0" type="checkbox" />
       <div className="collapse-title p-0 min-h-0 text-xl font-medium">
@@ -21,7 +21,7 @@ const Comments = ({ profilePic, text, topComment }) => {
           </div>
         </div>
       </div>
-      <div className="collapse-content space-y-5 p-0">
+      <div className="collapse-content p-0">
         {topComment.map(({ avatar, comment },index) => {
           return (
             <div className="flex items-start space-x-4 my-4" key={index}>
