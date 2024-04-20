@@ -24,6 +24,7 @@ const VideoPlayer = () => {
     }, [currentTime]);
     useEffect(() => {
         let timer;
+      
         if (showControls) {
             timer = setTimeout(() => setShowControls(false), 5000); // Hide controls after 5 seconds of inactivity
         }
@@ -32,7 +33,7 @@ const VideoPlayer = () => {
 
     useEffect(() => {
         const video = videoRef.current;
-
+      
         video.addEventListener("ended", () => {
             setPaused(false);
         });
@@ -41,6 +42,7 @@ const VideoPlayer = () => {
             video.removeEventListener("loadedmetadata", handleLoadedMetadata);
         };
     }, []);
+
     const handleVolumeChange = e => {
         const videoEl = videoRef.current;
         videoEl.volume = parseFloat(e.target.value);
@@ -57,7 +59,9 @@ const VideoPlayer = () => {
     };
 
     const togglePlay = () => {
+      
         const video = videoRef.current;
+      
         if (video.paused) {
             setPaused(true);
             video.play();
@@ -69,7 +73,8 @@ const VideoPlayer = () => {
     };
 
     const showButtons = () => {
-        setShowControls(true); // Show controls when video is clicked
+        setShowControls(true);
+      // Show controls when video is clicked
     };
 
     const seekForward = () => {
@@ -109,11 +114,12 @@ const VideoPlayer = () => {
 
     const handleSeek = e => {
         const video = videoRef.current;
-
+      
         const seekTime =
             (e.clientX / progressBar.current.offsetWidth) * duration;
         video.currentTime = seekTime;
     };
+
     const formatTime = time => {
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
@@ -122,15 +128,30 @@ const VideoPlayer = () => {
             .padStart(2, "0")}`;
         return formattedTime;
     };
-    
-    const requestFullScreen = ()=>{
-      const videoEl = videoRef.current
-      console.log(videoEl)
-      videoEl.requestFullScreen()
-      console.log('requested')
-      return 0
-    }
 
+    const requestFullScreen = () => {
+      const videoEl = videoRef.current;
+    
+       try{
+         if (videoEl.requestFullscreen) {
+           videoEl.requestFullscreen();
+         } else if (videoEl.mozRequestFullScreen) { /* Firefox */
+           videoEl.mozRequestFullScreen();
+         } else if (videoEl.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+           videoEl.webkitRequestFullscreen();
+         } else if (videoEl.msRequestFullscreen) { /* IE/Edge */
+           videoEl.msRequestFullscreen();
+         }
+} catch (err){
+
+console.log(err)
+alert('Your Browser does not support fullscreen mode.')
+}
+      
+      
+    }
+    
+  
 
     return (
         <div className="flex flex-col" onDoubleClick={requestFullScreen}>
@@ -140,14 +161,14 @@ const VideoPlayer = () => {
                 onTouchMove={() => {
                     setShowControls(true);
                 }}
-           
+
             >
                 <video
                     ref={videoRef}
                     onClick={showButtons}
                     onTimeUpdate={handleTimeUpdate}
-                    className="w-full"
-                    poster="logo.jpeg"
+                    className="w-full h-[200px] object-cover bg-cover"
+    poster="logo.jpeg"                
                     src="fav.mp4"
                 >
                     Your browser does not support the video tag.
@@ -207,7 +228,7 @@ const VideoPlayer = () => {
                     </div>
                 )}
             </div>
-            <InfoBar />
+            <InfoBar title={'somewhere only we know'} views={480}/>
         </div>
     );
 };

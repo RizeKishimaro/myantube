@@ -98,8 +98,8 @@ export default function App() {
                                                     Open user menu
                                                 </span>
                                                 <img
-                                                    className="h-8 w-8 rounded-full"
-                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                    className="h-8 w-8 rounded-full bg-cover"
+                                                 src="https://steamuserimages-a.akamaihd.net/ugc/863983651935701412/09AA5E406A4F94CB31E071AC76C4EACC32161CC9/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
                                                     alt=""
                                                 />
                                             </Menu.Button>
