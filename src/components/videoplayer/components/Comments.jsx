@@ -9,7 +9,7 @@ const Comments = ({ profilePic, text, topComment }) => {
     <div className="collapse ">
       
       <input type="checkbox" />
-      <div className="collapse-title p-0 h-0 text-xl font-medium">
+      <div className="collapse-title p-0 min-h-0 text-xl font-medium">
         <div className="flex items-start space-x-4 my-2">
           <img
             src={profilePic}
