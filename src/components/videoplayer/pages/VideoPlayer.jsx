@@ -167,7 +167,7 @@ alert('Your Browser does not support fullscreen mode.')
                     ref={videoRef}
                     onClick={showButtons}
                     onTimeUpdate={handleTimeUpdate}
-                    className="w-full h-[350px] object-cover bg-cover"
+                    className="w-full h-[340px] bg-cover"
     poster="logo.jpeg"                
                     src="fav.mp4"
                 >
