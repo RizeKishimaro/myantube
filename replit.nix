@@ -1,3 +1,5 @@
 {pkgs}: {
-  deps = [pkgs.ffmpeg];
+  deps = [
+    pkgs.openssh
+  pkgs.ffmpeg];
 }
