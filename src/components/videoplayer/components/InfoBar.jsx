@@ -55,6 +55,8 @@ const InfoBar = ({ title, views }) => {
       <Comments
         profilePic="https://i.pinimg.com/736x/f0/75/5d/f0755d86cfad51df8ddb474986e72d8f.jpg"
         text="awesome!"
+        
+        topComment={TopComment}
       />
     </div>
   );
