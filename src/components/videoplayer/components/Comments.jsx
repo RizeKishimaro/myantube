@@ -21,7 +21,7 @@ const Comments = ({ profilePic, text, topComment }) => {
           </div>
         </div>
       </div>
-      <div className="collapse-content space-y-5">
+      <div className="collapse-content space-y-5 p-0">
         {topComment.map(({ avatar, comment },index) => {
           return (
             <div className="flex items-start space-x-4 my-4" key={index}>
