@@ -33,11 +33,11 @@ const ActionBar = ({ actionData }) => {
     <div className={"flex justify-between h-15 py-3"}>
       <button className="border border-white px-4 py-1 rounded-full flex w-[100px]">
       <ThumbUpIcon /> 
-        <span className={`ml-2 text-sm text-center my-auto`}>{like || 0}</span>
+        <span className={`ml-2 text-sm text-center my-auto`} onClick={setLike(likeam =>{ likeam +1})}>{like || 0}</span>
       </button>
       <button className="border border-white px-4 py-1 rounded-full flex w-[100px]">
         <ThumbDownIcon /> 
-        <span className={`ml-2 text-sm text-center my-auto`}>{dislikes ||0}</span>
+        <span className={`ml-2 text-sm text-center my-auto`} onClick={dislikes(dislike => dislikeam + 1)}>{dislikes ||0}</span>
       </button>
       <button className="border border-white px-4 py-1 rounded-full flex w-[100px] text-base" onClick={()=>{setIsSaved(!isSaved)}}>
         <BookmarkIcon />
