@@ -37,7 +37,7 @@ const ActionBar = ({ actionData }) => {
       </button>
       <button className="border border-white px-4 py-1 rounded-full flex w-[100px]">
         <ThumbDownIcon /> 
-        <span className={`ml-2 text-sm text-center my-auto`} onClick={setDislike(dislike => dislikeam + 1)}>{dislikes ||0}</span>
+        <span className={`ml-2 text-sm text-center my-auto`} onClick={setDislike(dislikeam => dislikeam + 1)}>{dislikes ||0}</span>
       </button>
       <button className="border border-white px-4 py-1 rounded-full flex w-[100px] text-base" onClick={()=>{setIsSaved(!isSaved)}}>
         <BookmarkIcon />
