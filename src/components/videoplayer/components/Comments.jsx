@@ -9,13 +9,13 @@ const Comments = ({ profilePic, text, topComment }) => {
     <div className="collapse space-y-5 space-x-4">
       <input className="min-h-0" type="checkbox" />
       <div className="collapse-title p-0 m-0 min-h-0 text-xl font-medium">
-        <div className="flex items-start">
+        <div className="flex items-start ">
           <img
             src={profilePic}
             className="w-6 h-6 rounded-full"
             alt="Profile"
           />
-          <div className="">
+          <div className="ml-3">
             <p className="text-white text-sm">{text}</p>
           </div>
         </div>
@@ -29,7 +29,7 @@ const Comments = ({ profilePic, text, topComment }) => {
                 className="w-6 h-6 rounded-full"
                 alt="Profile"
               />
-              <div className="">
+              <div className="ml-3">
                 <p className="text-white text-sm">{comment}</p>
               </div>
             </div>
