@@ -154,7 +154,7 @@ alert('Your Browser does not support fullscreen mode.')
   
 
     return (
-        <div className="flex flex-col" onDoubleClick={requestFullScreen}>
+        <div className="flex flex-col" >
             <div
                 className="relative"
                 onMouseMove={() => setShowControls(true)}
@@ -167,7 +167,9 @@ alert('Your Browser does not support fullscreen mode.')
                     ref={videoRef}
                     onClick={showButtons}
                     onTimeUpdate={handleTimeUpdate}
+                    onDoubleClick={requestFullScreen}
                     className="w-full h-[350px] bg-cover"
+                    
     poster="logo.jpeg"                
                     src="fav.mp4"
                 >
