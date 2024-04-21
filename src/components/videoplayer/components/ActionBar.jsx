@@ -39,7 +39,7 @@ const ActionBar = ({ actionData }) => {
         <ThumbDownIcon /> 
         <span className={`ml-2 text-sm text-center my-auto`} >{dislike ||0}</span>
       </button>
-      <button className="border border-white px-4 py-1 rounded-full flex w-[100px] text-base" onClick={()=>{setSaved(!saved)}}>
+      <button className="border border-white px-4 py-1 rounded-full flex w-[100px] text-base" onClick={()=>{setSaved(!saved);console.log(saved,isSaved)}}>
         <BookmarkIcon />
         <span className={`ml-2 text-sm text-center my-auto`}>{isSaved ? 'Saved' : 'Save'}</span>
       </button>
