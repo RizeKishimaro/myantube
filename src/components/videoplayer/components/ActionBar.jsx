@@ -26,16 +26,16 @@ const BookmarkIcon = ()=>{
 }
 const ActionBar = ({ actionData }) => {
   const {likes,dislikes,isSaved} = actionData
-  const [saved,setSaved] = useState(actionData.isSaved);
+  const [saved,setSaved] = useState(isSaved);
   const [like,setLike] = useState(likes)
   const [dislike,setDislike] = useState(dislikes)
   return (
     <div className={"flex justify-between h-15 py-3"}>
-      <button className="border border-white px-4 py-1 rounded-full flex w-[100px]" onClick={()=>{setLike(like +1);console.log('hehe') }}>
+      <button className="border border-white px-4 py-1 rounded-full flex w-[100px]" onClick={()=>{setLike(like +1);console.log(like) }}>
       <ThumbUpIcon /> 
         <span className={`ml-2 text-sm text-center my-auto`} >{like || 0}</span>
       </button>
-      <button className="border border-white px-4 py-1 rounded-full flex w-[100px]" onClick={()=>{setDislike(dislike + 1); console.log('clicked')}}>
+      <button className="border border-white px-4 py-1 rounded-full flex w-[100px]" onClick={()=>{setDislike(dislike + 1); console.log(dislike)}}>
         <ThumbDownIcon /> 
         <span className={`ml-2 text-sm text-center my-auto`} >{dislike ||0}</span>
       </button>
