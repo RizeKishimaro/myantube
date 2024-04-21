@@ -194,7 +194,7 @@ alert('Your Browser does not support fullscreen mode.')
                             ref={progressBar}
                         >
                             <div
-                                className="h-full bg-white"
+                                className="h-full rainbow-background"
                                 style={{
                                     width: `${(currentTime / duration) * 100}%`
                                 }}
