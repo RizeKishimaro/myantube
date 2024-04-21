@@ -179,7 +179,7 @@ alert('Your Browser does not support fullscreen mode.')
                         ref={playerctl}
                     >
                         <div
-                            className="bg-black bg-opacity-50 h-2 w-full cursor-pointer mb-2 relative flex"
+                            className="bg-black bg-opacity-50 h-2 w-full cursor-pointer mb-2 relative flex align-middle"
                             onMouseDown={handleSeekStart}
                             onMouseUp={handleSeekEnd}
                             onMouseLeave={handleSeekEnd}
