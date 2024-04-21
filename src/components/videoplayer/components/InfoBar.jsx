@@ -3,7 +3,7 @@ import Uploader from "./Uploader";
 import Comments from "./Comments";
 import ActionBar from "./ActionBar";
 
-const ActionData = { likes: 10, dislkies: 5, isSaved: false };
+const ActionData = { likes: 10, dislikes: 5, isSaved: false };
 const UploaderData = [
   {
     avatar:
