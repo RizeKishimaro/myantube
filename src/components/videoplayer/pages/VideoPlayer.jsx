@@ -199,6 +199,9 @@ alert('Your Browser does not support fullscreen mode.')
                                     width: `${(currentTime / duration) * 100}%`
                                 }}
                             ></div>
+                           <div>
+                           <img src='elixer.gif'/>
+                           </div>
                         </div>
                         <div className="flex items-center  ">
                             <div className="ml-3 text-white absolute left-0 ">
