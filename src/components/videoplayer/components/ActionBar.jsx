@@ -31,15 +31,15 @@ const ActionBar = ({ actionData }) => {
   const [dislike,setDislike] = useState(dislikes)
   return (
     <div className={"flex justify-between h-15 py-3"}>
-      <button className="border border-white px-4 py-1 rounded-full flex w-[100px]" onClick={()=>{setLike(likeam =>{ return likeam +1})}}>
+      <button className="border border-white px-4 py-1 rounded-full flex w-[100px]" onClick={()=>{setLike(like +1)}}>
       <ThumbUpIcon /> 
         <span className={`ml-2 text-sm text-center my-auto`} >{like || 0}</span>
       </button>
-      <button className="border border-white px-4 py-1 rounded-full flex w-[100px]" onClick={()=>{setDislike(dislikeam => dislikeam + 1)}}>
+      <button className="border border-white px-4 py-1 rounded-full flex w-[100px]" onClick={()=>{setDislike(dislike + 1)}}>
         <ThumbDownIcon /> 
         <span className={`ml-2 text-sm text-center my-auto`} >{dislike ||0}</span>
       </button>
-      <button className="border border-white px-4 py-1 rounded-full flex w-[100px] text-base" onClick={()=>{setIsSaved(!isSaved)}}>
+      <button className="border border-white px-4 py-1 rounded-full flex w-[100px] text-base" onClick={()=>{setSaved(!saved)}}>
         <BookmarkIcon />
         <span className={`ml-2 text-sm text-center my-auto`}>{isSaved ? 'Saved' : 'Save'}</span>
       </button>
