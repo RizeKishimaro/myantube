@@ -179,7 +179,7 @@ alert('Your Browser does not support fullscreen mode.')
                         ref={playerctl}
                     >
                         <div
-                            className="bg-black bg-opacity-50 h-2 w-full cursor-pointer mb-2 relative"
+                            className="bg-black bg-opacity-50 h-2 w-full cursor-pointer mb-2 relative flex"
                             onMouseDown={handleSeekStart}
                             onMouseUp={handleSeekEnd}
                             onMouseLeave={handleSeekEnd}
@@ -200,7 +200,7 @@ alert('Your Browser does not support fullscreen mode.')
                                 }}
                             ></div>
                            <div>
-                           <img src='elixir.gif'/>
+                           <img className='w-14' src='elixir.gif'/>
                            </div>
                         </div>
                         <div className="flex items-center  ">
