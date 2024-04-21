@@ -200,7 +200,7 @@ alert('Your Browser does not support fullscreen mode.')
                                 }}
                             ></div>
                            <div>
-                           <img className='w-14' src='elixir.gif'/>
+                           <img className='w-7' src='elixir.gif'/>
                            </div>
                         </div>
                         <div className="flex items-center  ">
