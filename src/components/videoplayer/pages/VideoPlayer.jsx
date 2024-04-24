@@ -4,6 +4,7 @@ import PausedIcon from "../components/PausedBtn";
 import ForwardIcon from "../components/ForwardBtn";
 import BackwardIcon from "../components/BackwardBtn";
 import VolumeController from "../components/VolumeControl";
+import * as axios from "axios";
 import InfoBar from "../components/InfoBar";
 
 const VideoPlayer = () => {
@@ -30,7 +31,22 @@ const VideoPlayer = () => {
         }
         return () => clearTimeout(timer);
     }, [showControls]);
+useEffect(() => {
+  const fetchVideoStream = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/stream', {
+        responseType: 'blob', // Ensure response type is blob for video streaming
+      });
+      const videoBlob = new Blob([response.data], { type: 'video/mp4' });
+      const videoUrl = URL.createObjectURL(videoBlob);
+      videoRef.current.src = videoUrl; // Set video source dynamically
+    } catch (error) {
+      console.error('Error fetching video stream:', error);
+    }
+  };
 
+  fetchVideoStream();
+}, []);
     useEffect(() => {
         const video = videoRef.current;
       
@@ -145,7 +161,7 @@ const VideoPlayer = () => {
 } catch (err){
 
 console.log(err)
-alert('Your Browser does not support fullscreen mode.')
+window.alert('Your Browser does not support fullscreen mode.')
 }
       
       
