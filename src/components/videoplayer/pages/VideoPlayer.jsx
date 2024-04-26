@@ -4,8 +4,8 @@ import PausedIcon from "../components/PausedBtn";
 import ForwardIcon from "../components/ForwardBtn";
 import BackwardIcon from "../components/BackwardBtn";
 import VolumeController from "../components/VolumeControl";
-import * as axios from "axios";
 import InfoBar from "../components/InfoBar";
+import axios from "axios";
 
 const VideoPlayer = () => {
     const videoRef = useRef(null);
@@ -20,7 +20,10 @@ const VideoPlayer = () => {
     const [formattedCurrentTime, setFormattedCurrentTime] = useState("0:00");
     const [formattedDuration, setFormattedDuration] = useState("0:00");
     const [volume, setVolume] = useState(0.5); // Initial volume set to 50%
-    useEffect(() => {
+   const [bufferedSize, setBufferedSize] = useState(0);
+  const BUFFER_THRESHOLD = 50 * 1024 * 1024; // 50MB buffer threshold
+
+  useEffect(() => {
         setFormattedCurrentTime(formatTime(currentTime));
     }, [currentTime]);
     useEffect(() => {
@@ -31,22 +34,6 @@ const VideoPlayer = () => {
         }
         return () => clearTimeout(timer);
     }, [showControls]);
-useEffect(() => {
-  const fetchVideoStream = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/stream', {
-        responseType: 'blob', // Ensure response type is blob for video streaming
-      });
-      const videoBlob = new Blob([response.data], { type: 'video/mp4' });
-      const videoUrl = URL.createObjectURL(videoBlob);
-      videoRef.current.src = videoUrl; // Set video source dynamically
-    } catch (error) {
-      console.error('Error fetching video stream:', error);
-    }
-  };
-
-  fetchVideoStream();
-}, []);
     useEffect(() => {
         const video = videoRef.current;
       
@@ -58,7 +45,12 @@ useEffect(() => {
             video.removeEventListener("loadedmetadata", handleLoadedMetadata);
         };
     }, []);
-
+const handlePlay = () => {
+    if (bufferedSize >= BUFFER_THRESHOLD) {
+      // Pause the video or take other actions when buffer threshold is reached
+      alert("Buffer threshold reached. Pausing video.");
+    }
+  };
     const handleVolumeChange = e => {
         const videoEl = videoRef.current;
         videoEl.volume = parseFloat(e.target.value);
@@ -181,14 +173,18 @@ window.alert('Your Browser does not support fullscreen mode.')
             >
                 <video
                     ref={videoRef}
+          onPlay={handlePlay}
                     onClick={showButtons}
                     onTimeUpdate={handleTimeUpdate}
                     onDoubleClick={requestFullScreen}
-                    className="w-full h-[350px] bg-cover"
+                    className="w-full h-[300px] bg-cover"
+
                     
     poster="logo.jpeg"                
-                    src="fav.mp4"
                 >
+          <source src="http://localhost:3000/stream">
+
+          </source>
                     Your browser does not support the video tag.
                 </video>
                 {showControls && (
@@ -249,7 +245,7 @@ window.alert('Your Browser does not support fullscreen mode.')
                     </div>
                 )}
             </div>
-            <InfoBar title={'somewhere only we know'} views={480}/>
+            <InfoBar title={'Sea of Problems'} views={480}/>
         </div>
     );
 };
