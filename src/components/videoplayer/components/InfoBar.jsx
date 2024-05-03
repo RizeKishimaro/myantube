@@ -43,7 +43,12 @@ const InfoBar = ({ title, views }) => {
     <div className="info-bar p-2 bg-gray-900 text-white">
       <h2 className="text-xl font-semibold">{title}</h2>
       <p className="text-sm">{views.toLocaleString()} views</p>
-      <ActionBar likes={300} isSaved={isSaved} setIsSaved={setIsSaved} actionData={ActionData}/>
+      <ActionBar
+        likes={300}
+        isSaved={isSaved}
+        setIsSaved={setIsSaved}
+        actionData={ActionData}
+      />
       <Uploader
         uploader={"Hatsune Miku"}
         profilePic={
@@ -55,7 +60,6 @@ const InfoBar = ({ title, views }) => {
       <Comments
         profilePic="https://i.pinimg.com/736x/f0/75/5d/f0755d86cfad51df8ddb474986e72d8f.jpg"
         text="awesome!"
-        
         topComment={TopComment}
       />
     </div>
