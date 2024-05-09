@@ -1,14 +1,14 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import "./App.css";
 import VideoPlayer from "./components/videoplayer/pages/VideoPlayer";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import MusicPlayer from "./components/videoplayer/pages/MusicPlayer";
 const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Watch", href: "watch", current: false },
-  { name: "Me", href: "/me", current: false }
+  { name: "Home", href: "/" },
+  { name: "Watch", href: "/watch" },
+  { name: "Stream", href: "/music" }
 ];
 
 function classNames(...classes) {
@@ -16,6 +16,7 @@ function classNames(...classes) {
 }
 
 export default function App() {
+ const current = useLocation();
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -40,7 +41,7 @@ export default function App() {
                     <img
                       className="h-8 w-auto rounded-full"
                       src="logo.jpeg"
-                      alt="Your Company"
+                      alt="MyanTube"
                     />
                   </div>
                   <div className="hidden sm:ml-6 sm:block">
@@ -50,16 +51,15 @@ export default function App() {
                           key={item.name}
                           href={item.href}
                           className={classNames(
-                            item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            item.href === current.pathname ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
                             "rounded-md px-3 py-2 text-sm font-medium",
                           )}
-                          aria-current={item.current ? "page" : undefined}
+                          aria-current={item.href === current.pathname ? "page" : undefined}
                         >
                           {item.name}
                         </a>
-                      ))}
+                      ))
+                      }
                     </div>
                   </div>
                 </div>
@@ -149,12 +149,13 @@ export default function App() {
                   <Disclosure.Button
                     as="button"
                     className={classNames(
-                      item.current
+                      item.href === current.pathname
+            
                         ? "bg-gray-900 text-white"
                         : "text-gray-300 hover:bg-gray-700 hover:text-white",
                       "block rounded-md px-3 py-2 text-base font-medium",
                     )}
-                    aria-current={item.current ? "page" : undefined}
+                    aria-current={item.href === current.pathname ? "page" : undefined}
                   >
                     {item.name}
                   </Disclosure.Button>
