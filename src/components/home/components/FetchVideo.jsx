@@ -1,6 +1,8 @@
 import { useIntersection } from '@mantine/hooks';
 import React, { useEffect,useRef } from 'react'
 import { useInfiniteQuery } from 'react-query'
+import VideoInfo from './VideoInfo';
+import LoadingCard from '../skeleton/LoadingCard';
 
 const posts = [
   { id: 1, title: "nico nico neee" },
@@ -18,7 +20,7 @@ const fetchPost = async(page)=>{
   await new Promise((resolve)=> setTimeout(resolve,1000));
   return posts.slice((page -1) *2 ,page *2)
 }
-const InfiniteScroll = () => {
+const FetchVideo = () => {
   const {data,fetchNextPage,isFetchingNextPage} = useInfiniteQuery(["query"],async({ pageParam = 1})=>{
     const response = fetchPost(pageParam);
     return response;
@@ -48,17 +50,15 @@ useEffect(()=>{
     <div>
       words: {
       _posts.map((post,index)=>{
-        if(index === _posts.length -1) return <div key={post.id} className='h-80 bg-white text-black' ref={ref}></div>
-       return <div className='h-80 bg-white text-black' key={post.id}>
-        
-          {post.title}
-      </div>})
-    
+        if(index === _posts.length -1) return <div key={post.id} ref={ref}><VideoInfo/></div>
+       return <VideoInfo key={post.id}/>
+      })
+
     }     <button onClick={fetchNextPage}>
-        {isFetchingNextPage ? "Loading more": (data.pages.length ?? 0 )< 3 ? "Load More": "You're near dead end"}
+        {isFetchingNextPage ? <LoadingCard />: (data.pages.length ?? 0 )< 3 ? "Load More": "You're near dead end"}
       </button>
     </div>
   )
 }
 
-export default InfiniteScroll
+export default FetchVideo

@@ -19,16 +19,19 @@ const Comments = ({ profilePic, text, topComment }) => {
           </div>
         </div>
         <div className="collapse-content p-0 m-0">
-          {topComment.map(({ avatar, comment }, index) => {
+          {topComment.map(({ text, profile }, index) => {
+            if(index ===0){
+              return null
+            }
             return (
               <div className="flex items-start space-x-4 mb-3" key={index}>
                 <img
-                  src={avatar}
+                  src={`http://127.0.0.1:3000/${profile}`}
                   className="w-6 h-6 rounded-full"
                   alt="Profile"
                 />
                 <div className="ml-3">
-                  <p className="text-white text-sm">{comment}</p>
+                  <p className="text-white text-sm">{text}</p>
                 </div>
               </div>
             );

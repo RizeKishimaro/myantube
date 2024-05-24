@@ -5,10 +5,14 @@ import "./App.css";
 import VideoPlayer from "./components/videoplayer/pages/VideoPlayer";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import MusicPlayer from "./components/videoplayer/pages/MusicPlayer";
+import Login from "./components/login/Login";
+import Home from "./components/home/Home";
+import User from "./components/user/User";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Watch", href: "/watch" },
-  { name: "Stream", href: "/music" }
+  { name: "Stream", href: "/music" },
+  {name: "Login", href: "/login"}
 ];
 
 function classNames(...classes) {
@@ -98,15 +102,15 @@ export default function App() {
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <Menu.Item>
                           {({ active }) => (
-                            <a
-                              href="#"
+                            <Link
+                              to={"/me"}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700",
                               )}
                             >
                               Your Profile
-                            </a>
+                            </Link>
                           )}
                         </Menu.Item>
                         <Menu.Item>
@@ -169,7 +173,9 @@ export default function App() {
       <Routes>
         <Route path="/music" element={<MusicPlayer />}/>
         <Route path="/watch" element={<VideoPlayer />} />
-        <Route path="/" element={<h1>Home Page</h1>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/me" element={<User />} /> 
+        <Route path="/" element={<Home />} />
       </Routes>
     </>
   );

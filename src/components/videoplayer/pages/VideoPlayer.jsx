@@ -3,14 +3,16 @@ import PlayIcon from "../components/PlayBtn";
 import PausedIcon from "../components/PausedBtn";
 import ForwardIcon from "../components/ForwardBtn";
 import BackwardIcon from "../components/BackwardBtn";
-import VolumeController from "../components/VolumeControl";
 import InfoBar from "../components/InfoBar";
-import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
 const VideoPlayer = () => {
   const videoRef = useRef(null);
   const playerctl = useRef(null);
   const progressBar = useRef(null);
+  const [waiting, setWaiting] = useState(false)
+  const [poster, setPoster] = useState(null)
+  const [searchParam] = useSearchParams();
   const [paused, setPaused] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [duration, setDuration] = useState(0);
@@ -22,13 +24,12 @@ const VideoPlayer = () => {
   const [volume, setVolume] = useState(0.5); // Initial volume set to 50%
   const [bufferedSize, setBufferedSize] = useState(0);
   const BUFFER_THRESHOLD = 50 * 1024 * 1024; // 50MB buffer threshold
-
+  const urlId = searchParam.get("id")
   useEffect(() => {
     setFormattedCurrentTime(formatTime(currentTime));
   }, [currentTime]);
   useEffect(() => {
     let timer;
-
     if (showControls) {
       timer = setTimeout(() => setShowControls(false), 5000); // Hide controls after 5 seconds of inactivity
     }
@@ -40,6 +41,9 @@ const VideoPlayer = () => {
     video.addEventListener("ended", () => {
       setPaused(false);
     });
+    video.addEventListener("playing",()=>{
+      setPaused(true)
+    })
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
     return () => {
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
@@ -163,16 +167,20 @@ const VideoPlayer = () => {
           setShowControls(true);
         }}
       >
+        {waiting && <span className="loading loading-dots loading-lg absolute left-[45%] bottom-[45%]"></span>}
         <video
+          autoPlay
+          onWaiting={()=>{setWaiting(true)}}
+          onCanPlay={()=>{setWaiting(false)}}
           ref={videoRef}
           onPlay={handlePlay}
           onClick={showButtons}
           onTimeUpdate={handleTimeUpdate}
           onDoubleClick={requestFullScreen}
           className="w-full h-[300px] bg-cover"
-          poster="logo.jpeg"
+          poster={poster}
         >
-          <source src="http://localhost:3000/stream"></source>
+          <source src={`${import.meta.env.VITE_APP_BACKEND_URL}/stream?video=${urlId}`}></source>
           Your browser does not support the video tag.
         </video>
         {showControls && (
@@ -233,7 +241,7 @@ const VideoPlayer = () => {
           </div>
         )}
       </div>
-      <InfoBar title={"Sea of Problems"} views={480} />
+      <InfoBar setPoster={setPoster} />
     </div>
   );
 };

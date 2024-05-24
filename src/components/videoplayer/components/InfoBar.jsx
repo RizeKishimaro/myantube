@@ -1,68 +1,60 @@
-import React, { useState } from "react";
-import Uploader from "./Uploader";
-import Comments from "./Comments";
-import ActionBar from "./ActionBar";
+import React, { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
+import Uploader from './Uploader';
+import Comments from './Comments';
+import ActionBar from './ActionBar';
+import axiosInstance from "../../api/axios";
+import SkeletonLoader from '../skeleton/SkeletonLoader';
+import { useSearchParams } from 'react-router-dom';
 
-const ActionData = { likes: 10, dislikes: 5, isSaved: false };
-const UploaderData = [
-  {
-    avatar:
-      "https://i.pinimg.com/originals/b3/ee/4e/b3ee4ebb9b2813d05ec9f1a27a0ff751.jpg",
-    name: "Jon Snow",
-    subscribers: 300,
-  },
-];
-const TopComment = [
-  {
-    avatar:
-      "https://i.pinimg.com/736x/f0/75/5d/f0755d86cfad51df8ddb474986e72d8f.jpg",
-    comment: "I'm thinking miku miku oiii eee ooo",
-  },
-  {
-    avatar:
-      "https://i.pinimg.com/736x/f0/75/5d/f0755d86cfad51df8ddb474986e72d8f.jpg",
-    comment: "I'm thinking miku miku oiii eee ooo",
-  },
-  {
-    avatar:
-      "https://i.pinimg.com/736x/f0/75/5d/f0755d86cfad51df8ddb474986e72d8f.jpg",
-    comment: "I'm thinking miku miku oiii eee ooo",
-  },
-  {
-    avatar:
-      "https://i.pinimg.com/736x/f0/75/5d/f0755d86cfad51df8ddb474986e72d8f.jpg",
-    comment: "I'm thinking miku miku oiii eee ooo",
-  },
-];
-const InfoBar = ({ title, views }) => {
+const fetchVideoData = async (idParam) => {
+  const { data } = await axiosInstance.get(`/video/${idParam}`);
+  return data.data;
+};
+
+const InfoBar = ({ setPoster }) => {
   const [isSaved, setIsSaved] = useState(false);
-  const [likes, setLikes] = useState(0);
-  const [dislike, setDislike] = useState(0);
-  const [id, setId] = useState("idRt3fSz");
+  const [searchParam] = useSearchParams();
+  const idParam = searchParam.get("id");
+
+  const { data, error, isLoading } = useQuery('videoData', () => fetchVideoData(idParam));
+
+  useEffect(() => {
+    if (data && data.video && data.video.poster) {
+      setPoster(data.video.poster);
+    }
+  }, [data, setPoster]);
+
+  if (isLoading) return <SkeletonLoader />;
+  if (error) return <p className="text-red-500">Error loading data</p>;
+
+  const { uploader, video } = data;
+  const { name, picture } = uploader;
+  const { id, poster, description, title: videoTitle, comment, status } = video;
+  const { likes, dislikes, views } = status;
+
   return (
     <div className="info-bar p-2 bg-gray-900 text-white">
-      <h2 className="text-xl font-semibold">{title}</h2>
+      <h2 className="text-xl font-semibold">{videoTitle}</h2>
       <p className="text-sm">{views.toLocaleString()} views</p>
       <ActionBar
-        likes={300}
+        likes={likes}
         isSaved={isSaved}
         setIsSaved={setIsSaved}
-        actionData={ActionData}
+        actionData={{ likes, dislikes, isSaved: false }}
       />
       <Uploader
-        uploader={"Hatsune Miku"}
-        profilePic={
-          "https://i.pinimg.com/originals/b3/ee/4e/b3ee4ebb9b2813d05ec9f1a27a0ff751.jpg"
-        }
-        subscribers={300}
+        uploader={name}
+        profilePic={`http://127.0.0.1:3000/${picture}`}
+        subscribers={0}
       />
-
       <Comments
-        profilePic="https://i.pinimg.com/736x/f0/75/5d/f0755d86cfad51df8ddb474986e72d8f.jpg"
-        text="awesome!"
-        topComment={TopComment}
+        profilePic={`http://127.0.0.1:3000/${comment[0].profile}`}
+        text={comment[0].text}
+        topComment={comment}
       />
     </div>
   );
 };
+
 export default InfoBar;

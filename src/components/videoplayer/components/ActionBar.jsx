@@ -40,8 +40,7 @@ const BookmarkIcon = () => {
     </svg>
   );
 };
-const ActionBar = ({ actionData }) => {
-  const { likes, dislikes, isSaved } = actionData;
+const ActionBar = ({ likes,dislikes,isSaved }) => {
   const [saved, setSaved] = useState(isSaved);
   const [like, setLike] = useState(likes);
   const [dislike, setDislike] = useState(dislikes);
