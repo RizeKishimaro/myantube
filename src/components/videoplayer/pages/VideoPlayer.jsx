@@ -29,6 +29,7 @@ const VideoPlayer = () => {
     setFormattedCurrentTime(formatTime(currentTime));
   }, [currentTime]);
   useEffect(() => {
+    console.log(`${import.meta.env.VITE_APP_BACKEND_URL}/stream?video=${urlId}`)
     let timer;
     if (showControls) {
       timer = setTimeout(() => setShowControls(false), 5000); // Hide controls after 5 seconds of inactivity
