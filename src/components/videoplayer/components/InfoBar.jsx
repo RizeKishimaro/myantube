@@ -45,11 +45,11 @@ const InfoBar = ({ setPoster }) => {
       />
       <Uploader
         uploader={name}
-        profilePic={`http://127.0.0.1:3000/${picture}`}
+        profilePic={`${import.meta.env.VITE_APP_BACKEND_URL}/${picture}`}
         subscribers={0}
       />
       <Comments
-        profilePic={`http://127.0.0.1:3000/${comment[0].profile}`}
+        profilePic={`${import.meta.env.VITE_APP_BACKEND_URL}/${comment[0].profile}`}
         text={comment[0].text}
         topComment={comment}
       />

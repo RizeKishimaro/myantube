@@ -14,7 +14,7 @@ const VideoInfo = ({id,image,title,views,uploaderImage,uploaderName,totalTime}) 
       <div className='flex mt-2'>
         <div className='w-full ms-4 flex'>
           <div className='h-full mt-2 w-9 overflow-hidden'>
-            <img className='rounded-full' src={`http://127.0.0.1:3000/${uploaderImage}`} alt={uploaderName} />
+            <img className='rounded-full' src={`${import.meta.env.VITE_APP_BACKEND_URL}/${uploaderImage}`} alt={uploaderName} />
 
           </div>
           <div className='ms-3 d-block '>

@@ -3,7 +3,6 @@ import { useQuery } from 'react-query';
 import axiosInstance from '../api/axios';
 import VideoInfo from './components/VideoInfo';
 import LoadingCard from './skeleton/LoadingCard';
-import FetchVideo from './components/FetchVideo';
 
 const fetchVideos = async () => {
   const { data } = await axiosInstance.get('/video');
