@@ -1,3 +1,50 @@
+/* index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes openEye {
+  0% {
+    height: 0.2rem;
+  }
+  50% {
+    height: 1.5rem;
+  }
+  100% {
+    height: 1.5rem;
+  }
+}
+
+@keyframes closeEye {
+  0% {
+    height: 1.5rem;
+  }
+  50% {
+    height: 0.2rem;
+  }
+  100% {
+    height: 0.2rem;
+  }
+}
+
+.eyes-container {
+  @apply flex justify-center items-center h-screen space-y-4;
+}
+
+.eye {
+  @apply w-20 bg-gray-800 rounded-full relative overflow-hidden mt-4;
+  animation-name: openEye;
+  height: 1.5rem; /* Initial height to create the curved shape */
+  animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-delay: 0.5s;
+    animation-direction: alternate;
+}
+
+.pupil {
+  @apply w-6 h-6 bg-black rounded-full absolute top-0 left-1/2 transform -translate-x-1/2;
+}
+
+.text-404 {
+  @apply text-4xl font-bold text-gray-800 mt-8;
+}

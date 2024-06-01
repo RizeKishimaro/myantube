@@ -8,6 +8,7 @@ import MusicPlayer from "./components/videoplayer/pages/MusicPlayer";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import User from "./components/user/User";
+import NotFound from "./components/error/NotFound";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Watch", href: "/watch" },
@@ -22,7 +23,7 @@ function classNames(...classes) {
 export default function App() {
  const current = useLocation();
   return (
-    <>
+    <div className="bg-gray-900">
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
@@ -44,7 +45,7 @@ export default function App() {
                   <div className="flex flex-shrink-0 items-center">
                     <img
                       className="h-8 w-auto rounded-full"
-                      src="logo.jpeg"
+                      src="/public/logo.jpeg"
                       alt="MyanTube"
                     />
                   </div>
@@ -173,10 +174,11 @@ export default function App() {
       <Routes>
         <Route path="/music" element={<MusicPlayer />}/>
         <Route path="/watch" element={<VideoPlayer />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/auth/*" element={<Login />} />
         <Route path="/me" element={<User />} /> 
         <Route path="/" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </div>
   );
 }
