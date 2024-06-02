@@ -6,7 +6,7 @@ const Error = () => {
     <div className='my-auto'>
 
     <div className='text-center'>
-      <img src="/public/thumbup.png" alt="humm" className='h-40 mx-auto'/>
+      <img src="/thumbup.png" alt="humm" className='h-40 mx-auto'/>
     </div>
       <div>
         <div className='flex text-pink-600 justify-center font-bold text-6xl tracking-widest'>

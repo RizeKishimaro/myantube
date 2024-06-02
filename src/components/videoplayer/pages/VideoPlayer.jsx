@@ -11,6 +11,7 @@ const VideoPlayer = () => {
   const playerctl = useRef(null);
   const progressBar = useRef(null);
   const [waiting, setWaiting] = useState(false)
+  const [bufferedPercentage, setBufferedPercentage] = useState(0); // New state for buffered data
   const [poster, setPoster] = useState(null)
   const [searchParam] = useSearchParams();
   const [paused, setPaused] = useState(false);
@@ -29,7 +30,6 @@ const VideoPlayer = () => {
     setFormattedCurrentTime(formatTime(currentTime));
   }, [currentTime]);
   useEffect(() => {
-    console.log(`${import.meta.env.VITE_APP_BACKEND_URL}/stream?video=${urlId}`)
     let timer;
     if (showControls) {
       timer = setTimeout(() => setShowControls(false), 5000); // Hide controls after 5 seconds of inactivity
@@ -45,11 +45,28 @@ const VideoPlayer = () => {
     video.addEventListener("playing",()=>{
       setPaused(true)
     })
+    video.addEventListener("progress", handleProgress);
     video.addEventListener("loadedmetadata", handleLoadedMetadata);
     return () => {
+      video.removeEventListener("progress", handleProgress);  
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
     };
   }, []);
+  useEffect(()=>{
+    const video = videoRef.current;
+    video.addEventListener("ended",()=>{
+      setBufferedPercentage(0)
+    })
+  },[bufferedPercentage])
+  const handleProgress = () => {
+  const video = videoRef.current;
+  if (video.buffered.length > 0) {
+    const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+    const bufferedPercent = (bufferedEnd / video.duration) * 100;
+    setBufferedPercentage(bufferedPercent);
+  }
+};
+
   const handlePlay = () => {
     if (bufferedSize >= BUFFER_THRESHOLD) {
       // Pause the video or take other actions when buffer threshold is reached
@@ -91,13 +108,15 @@ const VideoPlayer = () => {
 
   const seekForward = () => {
     const video = videoRef.current;
-    video.currentTime += 10; // Seek forward by 10 seconds
+    const time = video.currentTime += 10; // Seek forward by 10 seconds
+    setCurrentTime(time)
     setShowControls(true); // Show controls when forward button is clicked
   };
 
   const seekBackward = () => {
     const video = videoRef.current;
-    video.currentTime -= 10; // Seek backward by 10 seconds
+    const time = video.currentTime -= 10;
+    setCurrentTime(time)
     setShowControls(true); // Show controls when backward button is clicked
   };
 
@@ -120,15 +139,16 @@ const VideoPlayer = () => {
       const seekTime =
         (e.touches[0].clientX / progressBar.current.offsetWidth) * duration;
       video.currentTime = seekTime;
+      setCurrentTime(seekTime)
     }
   };
 
-  const handleSeek = (e) => {
-    const video = videoRef.current;
-
-    const seekTime = (e.clientX / progressBar.current.offsetWidth) * duration;
-    video.currentTime = seekTime;
-  };
+const handleSeek = (e) => {
+  const video = videoRef.current;
+  const seekTime = (e.clientX / progressBar.current.offsetWidth) * duration;
+  video.currentTime = seekTime;
+  setCurrentTime(seekTime); // Update current time
+};
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
@@ -204,13 +224,16 @@ const VideoPlayer = () => {
               onTouchMove={handleDragSeek}
               ref={progressBar}
             >
+              <div className="h-full bg-cyan-300 opacity-75 absolute" style={{width: `${bufferedPercentage}%`}}>
+                
+              </div>
               <div
-                className="h-full bg-cyan-500"
+                className="h-full bg-cyan-500 z-40"
                 style={{
                   width: `${(currentTime / duration) * 100}%`,
                 }}
               ></div>
-              <div className="">
+              <div className="z-50">
                 <img className="w-10 mt-[-7px] ml-[-10px]" src="elixir.gif" />
               </div>
             </div>

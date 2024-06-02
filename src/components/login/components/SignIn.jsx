@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import Icon from "./../../../../public/Group.svg";
+import Icon from "/Group.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey, faUserSecret } from '@fortawesome/free-solid-svg-icons';
 

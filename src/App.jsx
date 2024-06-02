@@ -9,11 +9,12 @@ import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import User from "./components/user/User";
 import NotFound from "./components/error/NotFound";
+import Search from "./components/search/Search";
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Watch", href: "/watch" },
+  {name: "Search", href: "/search"},
   { name: "Stream", href: "/music" },
-  {name: "Login", href: "/login"}
+  {name: "Login", href: "/auth"}
 ];
 
 function classNames(...classes) {
@@ -45,7 +46,7 @@ export default function App() {
                   <div className="flex flex-shrink-0 items-center">
                     <img
                       className="h-8 w-auto rounded-full"
-                      src="/public/logo.jpeg"
+                      src="/logo.jpeg"
                       alt="MyanTube"
                     />
                   </div>
@@ -86,7 +87,7 @@ export default function App() {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full bg-cover"
-                          src="https://steamuserimages-a.akamaihd.net/ugc/863983651935701412/09AA5E406A4F94CB31E071AC76C4EACC32161CC9/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
+                          src="https://ih1.redbubble.net/image.5491736425.7172/raf,360x360,075,t,fafafa:ca443f4786.jpg"
                           alt=""
                         />
                       </Menu.Button>
@@ -177,6 +178,7 @@ export default function App() {
         <Route path="/auth/*" element={<Login />} />
         <Route path="/me" element={<User />} /> 
         <Route path="/" element={<Home />} />
+        <Route path="search" element={<Search />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

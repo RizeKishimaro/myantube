@@ -6,6 +6,7 @@ import ActionBar from './ActionBar';
 import axiosInstance from "../../api/axios";
 import SkeletonLoader from '../skeleton/SkeletonLoader';
 import { useSearchParams } from 'react-router-dom';
+import FullComment from './FullComment';
 
 const fetchVideoData = async (idParam) => {
   const { data } = await axiosInstance.get(`/video/${idParam}`);
@@ -14,6 +15,7 @@ const fetchVideoData = async (idParam) => {
 
 const InfoBar = ({ setPoster }) => {
   const [isSaved, setIsSaved] = useState(false);
+  const [viewComments,setViewComments]=useState(false)
   const [searchParam] = useSearchParams();
   const idParam = searchParam.get("id");
 
@@ -37,6 +39,8 @@ const InfoBar = ({ setPoster }) => {
     <div className="info-bar p-2 bg-gray-900 text-white">
       <h2 className="text-xl font-semibold">{videoTitle}</h2>
       <p className="text-sm">{views.toLocaleString()} views</p>
+      { viewComments ? <FullComment />  :
+        <>
       <ActionBar
         likes={likes}
         isSaved={isSaved}
@@ -48,11 +52,15 @@ const InfoBar = ({ setPoster }) => {
         profilePic={`${import.meta.env.VITE_APP_BACKEND_URL}/${picture}`}
         subscribers={0}
       />
-      <Comments
+      <div onClick={()=>{setViewComments((prev)=> !prev)}}>
+       <Comments
         profilePic={`${import.meta.env.VITE_APP_BACKEND_URL}/${comment[0].profile}`}
         text={comment[0].text}
         topComment={comment}
       />
+      </div>
+      </>
+      }
     </div>
   );
 };
