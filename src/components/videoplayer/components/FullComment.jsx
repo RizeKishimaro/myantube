@@ -60,7 +60,7 @@ const FullComment = () => {
   }, [loading, hasMore]);
 
   return (
-    <div className="bg-gray-700 h-60 relative overflow-x-hidden overflow-y-scroll px-3 rounded-md">
+    <div className="bg-gray-700 mt-3 h-60 relative overflow-x-hidden overflow-y-scroll px-3 rounded-md">
       <p className="sticky top-0 bg-gray-700 z-50 px-2 py-2">
         <span className="text-lg">Comments {comments.length + 1}</span>
       </p>

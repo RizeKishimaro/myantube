@@ -172,6 +172,15 @@ export default function App() {
           </>
         )}
       </Disclosure>
+      <div className="px-2 py-1 flex align-middle ">
+
+        <div>
+          <img width="50px" src="/images/antigay.png" alt="antigay"/>
+        </div>
+        <div className="ml-2 py-1">
+          <p>We Do not support LGBTQ+ Community</p>
+        </div>
+      </div>
       <Routes>
         <Route path="/music" element={<MusicPlayer />}/>
         <Route path="/watch" element={<VideoPlayer />} />
