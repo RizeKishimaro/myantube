@@ -39,7 +39,7 @@ const InfoBar = ({ setPoster }) => {
     <div className="info-bar p-2 bg-gray-900 text-white">
       <h2 className="text-xl font-semibold">{videoTitle}</h2>
       <p className="text-sm">{views.toLocaleString()} views</p>
-      { viewComments ? <FullComment />  :
+      { viewComments ? <FullComment setViewComments comment={comment}/>  :
         <>
       <ActionBar
         likes={likes}

@@ -6,7 +6,12 @@ import LoadingCard from './skeleton/LoadingCard';
 import Error from '../error/Error';
 
 const fetchVideos = async () => {
-  const { data } = await axiosInstance.get('/video');
+  const { data } = await axiosInstance.get('/video',{
+    params:{
+      page: 0,
+      limit:10
+    }
+  });
   return data;
 };
 

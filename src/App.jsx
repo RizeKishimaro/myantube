@@ -178,7 +178,7 @@ export default function App() {
           <img width="50px" src="/images/antigay.png" alt="antigay"/>
         </div>
         <div className="ml-2 py-1">
-          <p>We Do not support LGBTQ+ Community</p>
+          <p className="text-white">We Do not support LGBTQ+ Community</p>
         </div>
       </div>
       <Routes>

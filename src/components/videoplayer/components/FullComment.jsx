@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios'; // Ensure you have axios installed
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
@@ -18,31 +19,34 @@ const CommentSkeleton = () => {
   );
 };
 
-const FullComment = () => {
+const FullComment = ({ setViewComments }) => {
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState([]);
+  const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
-  const loadComments = () => {
+  const fetchComments = async (page) => {
     setLoading(true);
-    setTimeout(() => {
-      const newComments = [...Array(5)].map((_, index) => ({
-        id: comments.length + index,
-        text: `Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.`,
-        profileImg: "https://ih1.redbubble.net/image.5491736425.7162/flat,800x800,075,f.jpg"
-      }));
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/comments`, {
+        params: { page, limit: 10 } // Adjust limit as needed
+      });
+      const newComments = response.data.comments;
       setComments(prevComments => [...prevComments, ...newComments]);
       setLoading(false);
-      if (comments.length + newComments.length >= 27) {
+      if (newComments.length === 0) {
         setHasMore(false);
       }
-    }, 2000);
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    loadComments();
-  }, []);
+    fetchComments(page);
+  }, [page]);
 
   const lastCommentRef = useRef();
 
@@ -51,7 +55,7 @@ const FullComment = () => {
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && hasMore) {
-        loadComments();
+        setPage(prevPage => prevPage + 1);
       }
     });
     if (lastCommentRef.current) {
@@ -62,7 +66,7 @@ const FullComment = () => {
   return (
     <div className="bg-gray-700 mt-3 h-60 relative overflow-x-hidden overflow-y-scroll px-3 rounded-md">
       <p className="sticky top-0 bg-gray-700 z-50 px-2 py-2">
-        <span className="text-lg">Comments {comments.length + 1}</span>
+        <span className="text-lg">Comments {comments.length}</span>
       </p>
       <div>
         {comments.map((comment, index) => (
