@@ -42,6 +42,7 @@ const Home = () => {
           id={video.id}
           image={video.poster}
           title={video.title}
+          duration={video.duration}
           views={video.status.views}
           uploaderName={author.name}
           uploaderImage={author.picture}
