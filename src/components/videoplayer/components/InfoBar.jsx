@@ -34,7 +34,6 @@ const InfoBar = ({ setPoster }) => {
   const { name, profile } = uploader;
   const { id, poster, description, title: videoTitle, comment, status } = video;
   const { likes, dislikes, views } = status;
-  console.log(comment)
 
   return (
     <div className="info-bar p-2 bg-gray-900 text-white">
