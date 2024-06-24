@@ -31,9 +31,10 @@ const InfoBar = ({ setPoster }) => {
   if (error) return <p className="text-red-500">Error loading data</p>;
 
   const { uploader, video } = data;
-  const { name, picture } = uploader;
+  const { name, profile } = uploader;
   const { id, poster, description, title: videoTitle, comment, status } = video;
   const { likes, dislikes, views } = status;
+  console.log(comment)
 
   return (
     <div className="info-bar p-2 bg-gray-900 text-white">
@@ -49,16 +50,16 @@ const InfoBar = ({ setPoster }) => {
       />
       <Uploader
         uploader={name}
-        profilePic={`${import.meta.env.VITE_APP_BACKEND_URL}/${picture}`}
+        profilePic={`${import.meta.env.VITE_APP_BACKEND_URL}/${profile}`}
         subscribers={0}
       />
-      <div onClick={()=>{setViewComments((prev)=> !prev)}}>
+      {comment.length >0 && (<div onClick={()=>{setViewComments((prev)=> !prev)}}>
        <Comments
         profilePic={`${import.meta.env.VITE_APP_BACKEND_URL}/${comment[0].profile}`}
         text={comment[0].text}
         topComment={comment}
       />
-      </div>
+      </div>)}
       </>
       }
     </div>
